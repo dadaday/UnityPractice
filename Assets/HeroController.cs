@@ -2,38 +2,25 @@
 
 public class HeroController : MonoBehaviour {
 
-	public float Speed = 2.0f;
+	private NavMeshAgent agent;
 
-	private ParticleSystem ps;
-	private bool dead = false;
-
-	void Start() {
-		ps = GetComponent<ParticleSystem> ();
+	void Start () {
+		agent = GetComponent<NavMeshAgent> ();
 	}
 
 	void Update () {
-		if (dead) {
+		if (GameManager.instance.IsPaused) {
 			return;
 		}
 
-		float horizontalAxis =
-			Input.GetAxis ("Horizontal");
-		float verticalAxis =
-			Input.GetAxis ("Vertical");
+		if (Input.GetMouseButtonDown (0)) {
+			Ray ray =
+				Camera.main.ScreenPointToRay (Input.mousePosition);
 
-		Vector3 shift =
-			new Vector3 (horizontalAxis, 0.0f, verticalAxis);
-		shift *=
-			Speed * Time.deltaTime;
-
-		transform.position +=
-			shift;
+			RaycastHit result;
+			if (Physics.Raycast (ray, out result, 100)) {
+				agent.SetDestination (result.point);
+			}
+		}
 	}
-
-	public void Die() {
-		dead = true;
-		ps.Play ();
-		Destroy (this.gameObject, ps.main.duration);
-	}
-
 }
