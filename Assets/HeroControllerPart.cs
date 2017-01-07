@@ -30,7 +30,6 @@ public class HeroControllerPart : MonoBehaviour {
 			shift;
 
 		if (transform.position.x > 1.0f) {
-			Debug.Log ("Moving ot next level");
 			UnityEngine.SceneManagement.SceneManager.LoadScene (1);
 		}
 	}

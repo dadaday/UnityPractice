@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
 
 	public void Play() {
 		IsPaused = false;
+		helpMenu.SetActive (false);
 		menu.SetActive(false);
 	}
 
@@ -54,8 +55,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ExitPress() {
-		quitMenu.SetActive (true);
+		helpMenu.SetActive (false);
 		menu.SetActive (false);
+		quitMenu.SetActive (true);
 	}
 
 	public void ChooseNo() {
